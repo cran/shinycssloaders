@@ -1,12 +1,12 @@
-533f61d0fcedab528fdde5f8b46446ad *DESCRIPTION
+f60d2c4ce10b3ca4ab0886bb6907c16d *DESCRIPTION
 8f881e8c1ebe4c19e87f9cca196eefc7 *NAMESPACE
-15de402ff3816aa034d6fbd476464db9 *NEWS.md
+1fb78877ac5adca081171473cad06582 *NEWS.md
 cdbaaff81fbf2185555892ad0513f3f9 *R/globals.R
 77e7f4395efa9a05a2015ac87c47173d *R/shinycssloaders-package.r
-1297b445d380ab76d10d5c85752998db *R/withSpinner.R
-5ffcb4142d80bd1f083d766519069e7d *README.md
-1cb7281d9c773a7e4260ff49f78166d8 *inst/assets/spinner.css
-a93b20fbe993ade8ad0519402a9548af *inst/assets/spinner.js
+d6603746e59b8d07fa527ba9fa553138 *R/withSpinner.R
+9950de875304bf1c42deb9ebbed34cea *README.md
+bca0ae8bce9b58cc5ef68a8b07fdc963 *inst/assets/spinner.css
+6a0aff16ee9359d7a53a5ad47fb41598 *inst/assets/spinner.js
 03c9758dc0b887f7f3891a3e30a79151 *inst/css-loaders/Gruntfile.js
 26c92bd5511369cfb546ed908707e4a5 *inst/css-loaders/LICENSE
 61ae15ee46b73b9f73800be90b0fd5eb *inst/css-loaders/README.md
@@ -41,4 +41,4 @@ bfa68e30b8f6e4bc936693d299ddf2e4 *inst/css-loaders/sass/load5.scss
 9e684762ef4749e9e63aa23ae805829c *inst/css-loaders/sass/load7.scss
 718ef4d66e52e26730c06f2e86d8b828 *inst/css-loaders/sass/load8.scss
 9c7bf273d04df68f62aed42681e6a2ba *man/shinycssloaders.Rd
-00f08c8b7c38ab066211c1f0d3dbcb93 *man/withSpinner.Rd
+a74a1256914b1dee763e7880d74033b1 *man/withSpinner.Rd
