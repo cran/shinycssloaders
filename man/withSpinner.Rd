@@ -2,33 +2,73 @@
 % Please edit documentation in R/withSpinner.R
 \name{withSpinner}
 \alias{withSpinner}
-\title{Add a spinner (loader) that shows when an output is recalculating}
+\title{Add a spinner that shows when an output is recalculating}
 \usage{
-withSpinner(ui_element, type = getOption("spinner.type", default = 1),
+withSpinner(
+  ui_element,
+  type = getOption("spinner.type", default = 1),
   color = getOption("spinner.color", default = "#0275D8"),
   size = getOption("spinner.size", default = 1),
   color.background = getOption("spinner.color.background"),
-  custom.css = FALSE, proxy.height = if (grepl("height:\\\\s*\\\\d",
-  ui_element)) NULL else "400px")
+  custom.css = FALSE,
+  proxy.height = NULL,
+  id = NULL,
+  image = NULL,
+  image.width = NULL,
+  image.height = NULL,
+  hide.ui = TRUE
+)
 }
 \arguments{
 \item{ui_element}{A UI element that should be wrapped with a spinner when the corresponding output is being calculated.}
 
-\item{type}{The type of spinner to use, valid values are integers between 1-8. They correspond to the enumeration in \url{https://projects.lukehaas.me/css-loaders/}}
+\item{type}{The type of spinner to use, valid values are integers between 0-8 (0 means no spinner). Check out
+\url{https://daattali.com/shiny/shinycssloaders-demo} to see the different types of spinners. You can also use
+your own custom image using the \code{image} parameter.}
 
-\item{color}{The color of the spinner to be applied in HTML in hex format}
+\item{color}{The color of the spinner in hex format. Ignored if \code{image} is used.}
 
-\item{size}{The size of the spinner, relative to it's default size.}
+\item{size}{The size of the spinner, relative to its default size (default is 1, a size of 2 means twice as large). Ignored if \code{image} is used.}
 
-\item{color.background}{For certain spinners (type 2-3), you will need to specify the background colour of the spinner}
+\item{color.background}{For certain spinners (type 2-3), you will need to specify the background color of the spinner. Ignored if \code{image} is used.}
 
-\item{custom.css}{If custom css is to be applied, we don't enforce the color / size options to the given spinner id}
+\item{custom.css}{Set to \code{TRUE} if you have your own custom CSS that you defined and you don't want the automatic CSS applied to the spinner. Ignored if \code{image} is used.}
 
-\item{proxy.height}{If the output doesn't specify the output height, you can set a proxy height. It defaults to 400px for outputs with undefined height.}
+\item{proxy.height}{If the output UI doesn't specify the output height, you can set a proxy height. It defaults to "400px"
+for outputs with undefined height. Ignored if \code{hide.ui} is set to \code{FALSE}.}
+
+\item{id}{The HTML ID to use for the spinner. If you don't provide one, it will be generated automatically.}
+
+\item{image}{The path or URL of the image to use if you want to use a custom image instead of a built-in spinner.}
+
+\item{image.width}{The width for the custom image spinner, in pixels. If not provided, then the original
+size of the image is used. Ignored if not using \code{image}.}
+
+\item{image.height}{The height for the custom image spinner, in pixels. If not provided, then the original
+size of the image is used. Ignored if not using \code{image}.}
+
+\item{hide.ui}{By default, while an output is recalculating, the output UI is hidden and the spinner is visible instead.
+Setting \code{hide.ui = FALSE} will result in the spinner showing up on top of the previous output UI.}
 }
 \description{
-Add a spinner (loader) that shows when an output is recalculating
+Add a spinner that shows when an output is recalculating
 }
 \examples{
-\dontrun{withSpinner(plotOutput("my_plot"))}
+if (interactive()) {
+  library(shiny)
+
+  shinyApp(
+    ui = fluidPage(
+      actionButton("go", "Go"),
+      withSpinner(plotOutput("plot"))
+    ),
+    server = function(input, output) {
+      output$plot <- renderPlot({
+        input$go
+        Sys.sleep(1.5)
+        plot(runif(10))
+      })
+    }
+  )
+}
 }
