@@ -1,7 +1,7 @@
 server <- function(input, output, session) {
   plotnum <- reactiveVal(0)
-  
-  output$show_example <- renderUI({
+
+  spinner_params <- reactive({
     if (input$type == "custom") {
       params <- list(
         ui_element = plotOutput(paste0("example", plotnum())),
@@ -18,9 +18,18 @@ server <- function(input, output, session) {
         color.background = "#fafafa"
       )
     }
-    do.call(shinycssloaders::withSpinner, params)
+
+    if (nzchar(input$caption)) {
+      params$caption <- input$caption
+    }
+
+    params
   })
-  
+
+  output$show_example <- renderUI({
+    suppressWarnings(do.call(shinycssloaders::withSpinner, spinner_params()))
+  })
+
   observeEvent(input$update, ignoreNULL = FALSE, {
     plotnum(plotnum() + 1)
     output[[paste0("example", plotnum())]] <- renderPlot({
@@ -31,5 +40,14 @@ server <- function(input, output, session) {
       plot(runif(10), main = "Random Plot")
       bg <- par(bg = bg)
     })
+  })
+
+  observeEvent(input$show, {
+    params <- spinner_params()
+    params$ui_element <- NULL
+    params$background <- input$bg
+    suppressWarnings(do.call(shinycssloaders::showPageSpinner, params))
+    Sys.sleep(input$time)
+    hidePageSpinner()
   })
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/withSpinner.R
 \name{withSpinner}
 \alias{withSpinner}
-\title{Add a spinner that shows when an output is recalculating}
+\title{Add a spinner that shows while an output is recalculating}
 \usage{
 withSpinner(
   ui_element,
@@ -10,36 +10,41 @@ withSpinner(
   color = getOption("spinner.color", default = "#0275D8"),
   size = getOption("spinner.size", default = 1),
   color.background = getOption("spinner.color.background"),
-  custom.css = FALSE,
-  proxy.height = NULL,
+  custom.css = getOption("spinner.custom.css", default = FALSE),
+  proxy.height = getOption("spinner.proxy.height"),
   id = NULL,
-  image = NULL,
-  image.width = NULL,
-  image.height = NULL,
-  hide.ui = TRUE
+  image = getOption("spinner.image"),
+  image.width = getOption("spinner.image.width"),
+  image.height = getOption("spinner.image.height"),
+  hide.ui = getOption("spinner.hide.ui", default = TRUE),
+  caption = getOption("spinner.caption")
 )
 }
 \arguments{
 \item{ui_element}{A UI element that should be wrapped with a spinner when the corresponding output is being calculated.}
 
-\item{type}{The type of spinner to use, valid values are integers between 0-8 (0 means no spinner). Check out
-\url{https://daattali.com/shiny/shinycssloaders-demo} to see the different types of spinners. You can also use
-your own custom image using the \code{image} parameter.}
+\item{type}{The type of spinner to use. Valid values are integers between 0-8 (0 means no spinner). Check out
+\url{https://daattali.com/shiny/shinycssloaders-demo/} to see the different types of spinners.
+You can also use your own custom image using the \code{image} parameter.}
 
 \item{color}{The color of the spinner in hex format. Ignored if \code{image} is used.}
 
-\item{size}{The size of the spinner, relative to its default size (default is 1, a size of 2 means twice as large). Ignored if \code{image} is used.}
+\item{size}{The size of the spinner, relative to its default size (default is 1, a size of 2 means twice as large).
+Ignored if \code{image} is used.}
 
-\item{color.background}{For certain spinners (type 2-3), you will need to specify the background color of the spinner. Ignored if \code{image} is used.}
+\item{color.background}{For certain spinners (type 2-3), you will need to specify the background color of the spinner.
+Ignored if \code{image} is used.}
 
-\item{custom.css}{Set to \code{TRUE} if you have your own custom CSS that you defined and you don't want the automatic CSS applied to the spinner. Ignored if \code{image} is used.}
+\item{custom.css}{Set to \code{TRUE} if you have your own custom CSS that you defined and you don't want the automatic CSS applied to the spinner.
+Ignored if \code{image} is used.}
 
 \item{proxy.height}{If the output UI doesn't specify the output height, you can set a proxy height. It defaults to "400px"
 for outputs with undefined height. Ignored if \code{hide.ui} is set to \code{FALSE}.}
 
 \item{id}{The HTML ID to use for the spinner. If you don't provide one, it will be generated automatically.}
 
-\item{image}{The path or URL of the image to use if you want to use a custom image instead of a built-in spinner.}
+\item{image}{The path or URL of the image to use if you want to use a custom image instead of a built-in spinner.
+If \code{image} is provided, then \code{type} is ignored.}
 
 \item{image.width}{The width for the custom image spinner, in pixels. If not provided, then the original
 size of the image is used. Ignored if not using \code{image}.}
@@ -49,9 +54,18 @@ size of the image is used. Ignored if not using \code{image}.}
 
 \item{hide.ui}{By default, while an output is recalculating, the output UI is hidden and the spinner is visible instead.
 Setting \code{hide.ui = FALSE} will result in the spinner showing up on top of the previous output UI.}
+
+\item{caption}{Caption to display below the spinner or image (text or HTML). The caption's font color is determined
+by the \code{color} parameter. Ignored if \code{type} is 1.}
 }
 \description{
-Add a spinner that shows when an output is recalculating
+Add a spinner that automatically shows while an output is recalculating. You can also manually trigger the spinner
+using \code{\link[=showSpinner]{showSpinner()}} and \code{\link[=hideSpinner]{hideSpinner()}}.\cr\cr
+Most parameters can be set globally in order to use a default setting for all spinners in your Shiny app.
+This can be done by setting an R option with the parameter's name prepended by \code{"spinner."}. For example, to set all spinners
+to type=5 and color=#0dc5c1 by default, use \code{options(spinner.type = 5, spinner.color = "#0dc5c1")}. The following parameters
+cannot be set globally: \code{ui_element}, \code{id}.\cr\cr
+Use \code{\link[=showPageSpinner]{showPageSpinner()}} to show a spinner on the entire page instead of individual outputs.
 }
 \examples{
 if (interactive()) {
@@ -71,4 +85,7 @@ if (interactive()) {
     }
   )
 }
+}
+\seealso{
+\code{\link[=showSpinner]{showSpinner()}}, \code{\link[=hideSpinner]{hideSpinner()}}, \code{\link[=showPageSpinner]{showPageSpinner()}}
 }

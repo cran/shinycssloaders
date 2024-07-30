@@ -1,3 +1,16 @@
+# shinycssloaders 1.1.0 (2024-07-30)
+
+- Add `showSpinner()` and `hideSpinner()` that allow you to manually trigger the spinner (#56)
+- Add support for full-page spinner that covers the entire page using `showPageSpinner()` and `hidePageSpinner()` (#42)
+- Add support for Rmarkdown documents (#8)
+- Add support for setting global options for most parameters (#78)
+- Add `caption` argument to allow showing a message under the spinner (#28)
+- Fix page sometimes wobbling because of hidden spinner (#54)
+- Fix bug where `shiny::tagList()` would throw an error (#73)
+- Fix bug where using an image spinner would cause the Shiny output to be centered (#79)
+- Add more informative error messages (#69)
+- Replace `addResourcePath()` with `htmlDependency()` which is more robust (#75)
+
 # shinycssloaders 1.0.0 (2020-07-28)
 
 - Add support for custom images with `image` parameter (#46)
@@ -12,9 +25,9 @@
 - Clarify the `custom.css` parameter which was causing confusion (#21)
 - Don't expose 'assets' as a resourch path because it blocks shiny apps from having a www/assets/ folder (#48)
 - Internal refactoring: Use one CSS file for all styles, and use CSS files to load custom CSS of each style (#37)
+- Complete revamp of all the documentation
 - Added a sample Shiny app "demo" that lets you experiment with all loader types and parameters
 - File cleanup: Remove all files and dirs from inst/css-loaders and only keep the CSS (#38)
-- Removed the default value of `proxy.height` parameter to simplify the function documentation
 
 # shinycssloaders 0.3 (2020-01-14)
 
